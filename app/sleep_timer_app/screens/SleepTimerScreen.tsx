@@ -1,16 +1,16 @@
 import {Button, NativeModules, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
-const {BackgroundService} = NativeModules;
+const {CounterService} = NativeModules;
 
 type Props = {};
 
 function SleepTimerScreen(props: Props) {
   const startBackgroundService = () => {
-    BackgroundService.startService();
+    CounterService.startService();
   };
   const stopBackgroundService = () => {
-    BackgroundService.stopService();
+    CounterService.stopService();
   };
 
   return (

@@ -29,9 +29,8 @@
       </activity>
 
       <!-- Add service for sleep timer app -->
-      <!-- <service android:name=".MyForegroundService"
-          android:foregroundServiceType="location|mediaPlayback"/> -->
-      <service android:name=".MyBackgroundService" android:enabled="true" android:exported="false" />
+      <service android:name=".CounterService" android:enabled="true" android:exported="false" />
+
 
     </application>
 </manifest>
