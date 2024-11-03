@@ -21,6 +21,12 @@ class CounterService : Service() {
     // Define a Runnable task that repeats actions at intervals
     private lateinit var runnable: Runnable
 
+    // Inside CounterService.kt, add EXTRA_INITIAL_COUNTER as a companion object. 
+    // This makes it accessible as a constant key for retrieving the initial counter value from the Intent.
+    companion object {
+        const val EXTRA_INITIAL_COUNTER = "initial_counter"  // Key for the initial counter value
+    }
+
     override fun onCreate() {
         super.onCreate()
 
@@ -29,29 +35,47 @@ class CounterService : Service() {
 
         // Define the task to be repeated at intervals
         runnable = Runnable {
-            counter++  // Increment the counter
-            showNotification(counter)  // Update the notification with the current count
-            
+
+           // Check if the counter has reached the limit
+            if (counter >= 30) {
+                stopSelf()  // Stop the service if the counter exceeds 30
+                return@Runnable  // Exit the runnable to avoid further execution
+
+            }
+            // Increment the counter
+            counter++
+
+            // Update the notification with the current count
+            showNotification(counter) 
+
             // Repeat every second
             handler.postDelayed(runnable, 1000)
         }
     }
 
+    // Called when the service is started
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
+        // Get the initial counter value from the intent if provided
+        counter = intent?.getIntExtra(EXTRA_INITIAL_COUNTER, 0) ?: 0  // Set default to 0 if not provided
+
         // Start the task by posting it to the handler
         handler.post(runnable)
         return START_STICKY  // Ensures the service is restarted if terminated
     }
 
+    // Called when the service is destroyed
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(runnable)  // Stop updating when the service is destroyed
     }
 
+    // Required method for Service class, but not used here as no binding is needed
     override fun onBind(intent: Intent?): IBinder? {
         return null  // Binding not needed for this service
     }
 
+    // Update the notification with the current counter value
     private fun showNotification(counter: Int) {
         val channelId = "counter_service_channel"
         val channelName = "Counter Service"
@@ -92,4 +116,5 @@ class CounterService : Service() {
         // Display the notification
         startForeground(1, notification)  // Start service in the foreground with the notification
     }
+
 }

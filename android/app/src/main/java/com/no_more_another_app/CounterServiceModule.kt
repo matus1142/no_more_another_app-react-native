@@ -16,10 +16,14 @@ class CounterServiceModule(reactContext: ReactApplicationContext) : ReactContext
     }
 
     // Expose a method to start the background service
+     // initialCounter is coming from JavaScript (client side)
     @ReactMethod
-    fun startService() {
+    fun startService(initialCounter: Int) {
+
         // Create an intent to start the CounterService
-        val serviceIntent = Intent(context, CounterService::class.java)
+        val serviceIntent = Intent(context, CounterService::class.java).apply {
+            putExtra(CounterService.EXTRA_INITIAL_COUNTER, initialCounter)
+        }
         context.startService(serviceIntent)
     }
 
@@ -30,4 +34,5 @@ class CounterServiceModule(reactContext: ReactApplicationContext) : ReactContext
         val serviceIntent = Intent(context, CounterService::class.java)
         context.stopService(serviceIntent)
     }
+
 }
