@@ -1,6 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Manual add permission -->
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Add permission for sleep timer app -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
       android:name=".MainApplication"
@@ -22,5 +27,11 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+
+      <!-- Add service for sleep timer app -->
+      <!-- <service android:name=".MyForegroundService"
+          android:foregroundServiceType="location|mediaPlayback"/> -->
+      <service android:name=".MyBackgroundService" android:enabled="true" android:exported="false" />
+
     </application>
 </manifest>
