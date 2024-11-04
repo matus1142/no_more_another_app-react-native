@@ -37,16 +37,19 @@ class CounterService : Service() {
         runnable = Runnable {
 
            // Check if the counter has reached the limit
-            if (counter >= 30) {
+            if (counter > 30) {
                 stopSelf()  // Stop the service if the counter exceeds 30
                 return@Runnable  // Exit the runnable to avoid further execution
-
             }
-            // Increment the counter
-            counter++
 
             // Update the notification with the current count
             showNotification(counter) 
+
+            // Send update to React Native (sent to CounterServiceModule)
+            CounterServiceModule.sendCounterUpdate(counter)
+
+            // Increment the counter
+            counter++
 
             // Repeat every second
             handler.postDelayed(runnable, 1000)
@@ -105,8 +108,8 @@ class CounterService : Service() {
 
         // Build the notification
         val notification: Notification = NotificationCompat.Builder(this, channelId)
-            .setContentTitle("SleepTimer App") // Title of the notification
-            .setContentText("Counter: $counter") // Text to display the current counter value
+            .setContentTitle("Sleep Timer") // Title of the notification
+            .setContentText("Count: $counter seconds") // Text to display the current counter value
             .setSmallIcon(R.drawable.ic_launcher) // Ensure this icon exists in drawable folder
             .setContentIntent(pendingIntent)  // Set the pending intent for click action
             .setPriority(NotificationCompat.PRIORITY_LOW) // Set priority for visibility on lock screen
