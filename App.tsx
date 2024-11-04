@@ -18,7 +18,6 @@ import {
 import GuideScreen from './app/guide_app/screens/GuideScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import AboutScreen from './app/guide_app/screens/AboutScreen';
 import SleepTimerScreen from './app/sleep_timer_app/screens/SleepTimerScreen';
 
 const Drawer = createDrawerNavigator();

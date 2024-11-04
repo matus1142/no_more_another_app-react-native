@@ -1,3 +1,8 @@
+## Trial Project for handle Android Native Module to run application as foreground mode without third-party library
+* focus on android\app\src\main\java\com\no_more_another_app
+
+#
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started

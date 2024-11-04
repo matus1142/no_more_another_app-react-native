@@ -13,9 +13,6 @@ import com.facebook.react.bridge.Arguments
 // Define the module that will be used to communicate with React Native
 class CounterServiceModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
-    // // Initialize the React application context
-    // private val context = reactContext
-
     init {
         // Initialize the reactContext for use in sending events
         CounterServiceModule.reactContext  = reactContext
